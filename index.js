@@ -2,6 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
+const fileName = 'session1';
+const filePath = path.join('./', 'data', `${fileName}.csv`);
+
 (async () => {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
@@ -74,10 +77,21 @@ const puppeteer = require('puppeteer');
         hands.push(hand);
     }
     console.log(hands);
+    writeCSV(filePath, hands);
     await browser.close();
 })();
 
 function resultToNumber(result) {
     if (result === '=') return 0;
     return Number(result);
+}
+
+async function writeCSV(path, hands) {
+    const wStream = fs.createWriteStream(path);
+    for (const hand of hands) {
+        const { boardNumber, position, contractLevel, contractSuit, contractAddition, declarer, lead, result, score } = hand;
+        let str = `${boardNumber};${position};${contractLevel};${contractSuit};${contractAddition};${declarer};${lead.suit};${lead.value};${result};${score}\n`;
+        wStream.write(str);
+    }
+    wStream.end();
 }
