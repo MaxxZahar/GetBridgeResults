@@ -2,13 +2,13 @@ const path = require('path');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
-const fileName = 'session1';
+const fileName = 'session2';
 const filePath = path.join('./', 'data', `${fileName}.csv`);
 
 (async () => {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto('https://spb.bridgesport.ru/A6/240525/240525s1/p206h.php');
+    await page.goto('https://spb.bridgesport.ru/A6/240525/240525s2/p206h.php');
     await page.setViewport({ width: 1080, height: 1024 });
     const tableHandles = await page.$$('.allbrd tr');
     const hands = [];
@@ -38,7 +38,7 @@ const filePath = path.join('./', 'data', `${fileName}.csv`);
                     contractSuit = 'nt';
                 }
                 declarer = await page.evaluate(el =>
-                    el.querySelectorAll('td')[3].textContent
+                    el.querySelectorAll('td')[3].textContent.trim()
                     , tableHandles[i]);
                 leadCardSuit = await page.evaluate(el =>
                     el.querySelectorAll('td')[4].querySelector('img').getAttribute('src')
