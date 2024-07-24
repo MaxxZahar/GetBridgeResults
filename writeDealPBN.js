@@ -14,7 +14,6 @@ let filePath = path.join('./', 'data', 'pbn', `${fileName}.pbn`);
     for (let i = 0; i < sessions.length; i++) {
         for (let j = 0; j < numberOfDealsPerSession[i]; j++) {
             dealPath = path.join(sessions[i], `d${j + 1}p.php`);
-            console.log(dealPath);
             const deal = await getDealPBN(dealPath);
             deals.push(deal);
         }

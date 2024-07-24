@@ -14,7 +14,6 @@ async function writePBN(path, deals) {
     const wStream = fs.createWriteStream(path, { flags: 'a' });
     await createPBNWithHeader(path, wStream);
     for (const i in deals) {
-        console.log(i);
         const { dealer, vulnerability, deal } = deals[i];
         let str = `
 [Event "Event"]
