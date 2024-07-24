@@ -1,11 +1,11 @@
 const getPairData = require('./index');
 const getContractsPlayed = require('./utils/utfuncs').getContractsPlayed;
-const pairNumbers = require('./tournaments/formulaMay24/pairNumbers');
+const pairNumbers = require('./tournaments/formulaJuly24/pairNumbers');
 const singleNumber = require('./tournaments/singleNumber'); // for testing
 const fs = require('fs');
 const path = require('path');
 
-const fileName = `formulaMayContractsPlayed`;
+const fileName = `formulaJulyContractsPlayed`;
 const filePath = path.join('./', 'data', `${fileName}.csv`);
 
 (async () => {

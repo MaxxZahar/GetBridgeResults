@@ -2,9 +2,9 @@ const path = require('path');
 const getPairData = require('./index');
 const writeCSV = require('./utils/utfuncs').writeCSV;
 
-const pairNumber = 107;
+const pairNumber = 204;
 
-const fileName = `formulaMay${pairNumber}`;
+const fileName = `formulaJuly${pairNumber}`;
 const filePath = path.join('./', 'data', `${fileName}.csv`);
 
 (async () => {

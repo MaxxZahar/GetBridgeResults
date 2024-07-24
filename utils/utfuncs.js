@@ -10,6 +10,24 @@ async function writeCSV(path, hands) {
     wStream.end();
 }
 
+async function writePBN(path, deals) {
+    const wStream = fs.createWriteStream(path, { flags: 'a' });
+    await createPBNWithHeader(path, wStream);
+    for (const i in deals) {
+        console.log(i);
+        const { dealer, vulnerability, deal } = deals[i];
+        let str = `
+[Event "Event"]
+[Board "${Number(i) + 1}"]
+[Dealer "${dealer}"]
+[Vulnerable "${vulnerability}"]
+[Deal "${deal}"]
+`;
+        wStream.write(str);
+    }
+    wStream.end();
+}
+
 function getContractsPlayed(hands) {
     const contractsPlayed = {
         east: [0, 0, 0, 0], west: [0, 0, 0, 0], north: [0, 0, 0, 0], south: [0, 0, 0, 0], all: [0, 0, 0, 0], scoresMade: [], scoresFailed: []
@@ -68,4 +86,15 @@ function median(data) {
     return n % 2 ? data[Math.floor(n / 2)] : (data[(n / 2) - 1] + data[n / 2]) / 2;
 }
 
-module.exports = { writeCSV, getContractsPlayed };
+async function createPBNWithHeader(path, wStream) {
+    if (!fs.existsSync(path)) {
+        const header = `
+% PBN 1.0
+[Generator "GetBridgeResults"]
+
+`;
+        wStream.write(header);
+    }
+}
+
+module.exports = { writeCSV, getContractsPlayed, writePBN };

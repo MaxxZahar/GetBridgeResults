@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const getSessions = require('./tournaments/formulaMay24/getPair');
+const getSessions = require('./tournaments/formulaJuly24/getPair');
 
 // (async () => {
 //     const browser = await puppeteer.launch({ headless: false });
